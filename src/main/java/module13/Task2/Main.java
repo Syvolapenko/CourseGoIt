@@ -2,18 +2,15 @@ package module13.Task2;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import org.json.simple.JSONArray;
-
-import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -52,6 +49,11 @@ public class Main {
                 .map(Comment::getBody)
                 .toList();
 
-        System.out.println(strings);
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(strings);
+
+        FileWriter file = new FileWriter("user-10-post-46-comments.json");
+        file.write(json);
+        file.close();
     }
 }
